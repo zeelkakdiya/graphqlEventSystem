@@ -23,6 +23,7 @@ app.use((req, res, next) => {
 
 app.use(isAuth);
 
+// graphql route point
 app.use(
   '/graphql',
   graphqlHttp({
