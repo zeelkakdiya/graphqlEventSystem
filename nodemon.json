@@ -1,7 +1,0 @@
-{
-  "env": {
-    "MONGO_USER": "mongooseUser",
-    "MONGO_PASSWORD": "",
-    "MONGO_DB": "graphql-db"
-  }
-}
