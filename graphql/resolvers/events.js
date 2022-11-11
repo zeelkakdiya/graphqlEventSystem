@@ -7,12 +7,33 @@ module.exports = {
   events: async () => {
     try {
       const events = await Event.find();
-      return events.map(event => {
+      return events.map((event) => {
         return transformEvent(event);
       });
     } catch (err) {
       throw err;
     }
+  },
+
+  event: async (args) => {
+    console.log(args);
+    const event = await Event.findOne({ title: args.title, _id: args._id });
+
+    const events = await Event.find({ title: args.title, _id: args._id });
+
+    if (!event) {
+      throw new Error('Not found Event');
+    }
+
+    // return events.map((event) => {
+    //   console.log(event);
+    //   return transformEvent(event);
+    // });
+
+    return transformEvent(event);
+    // return events.map((event) => {
+    //   return { ...event._doc, _id: event._id };
+    // });
   },
   createEvent: async (args, req) => {
     if (!req.isAuth) {
@@ -23,7 +44,7 @@ module.exports = {
       description: args.eventInput.description,
       price: +args.eventInput.price,
       date: new Date(args.eventInput.date),
-      creator: req.userId
+      creator: req.userId,
     });
     let createdEvent;
     try {
@@ -42,5 +63,5 @@ module.exports = {
       console.log(err);
       throw err;
     }
-  }
+  },
 };
